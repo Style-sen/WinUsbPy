@@ -9,7 +9,7 @@ class WinUsbPy(object):
 	def __init__(self):
 		self.api = WinUSBApi()
 		byte_array = c_byte * 8
-		self.guid = GUID(0xA5DCBF10L, 0x6530, 0x11D2, byte_array(0x90, 0x1F, 0x00, 0xC0, 0x4F, 0xB9, 0x51, 0xED))
+		self.guid = GUID(0xA5DCBF10, 0x6530, 0x11D2, byte_array(0x90, 0x1F, 0x00, 0xC0, 0x4F, 0xB9, 0x51, 0xED))
 		self.handle_file = INVALID_HANDLE_VALUE
 		self.handle_winusb = c_void_p()
 		self._index = -1 
@@ -69,7 +69,7 @@ class WinUsbPy(object):
 		self._vid = vid
 		self._pid = pid
 		try:
-			path = filter(self.find_device, self.device_paths)[0]
+			path = next(filter(self.find_device, self.device_paths))
 		except IndexError:
 			return False
 
